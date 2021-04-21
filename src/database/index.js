@@ -1,8 +1,10 @@
 import Sequelize from "sequelize";
 import databaseConfig from "../config/database"; //importar credenciais
 import User from "../app/models/User";
+import AdminModel from "../app/models/AdminModel";
 
-const models = [User];
+const users = [User];
+const admins = [AdminModel];
 
 class Database {
   constructor() {
@@ -11,8 +13,11 @@ class Database {
   init() {
     this.connection = new Sequelize(databaseConfig); //aqui eu tenho a conexão com DB
 
-    models.map((model) => model.init(this.connection));
+    users.map((model) => model.init(this.connection));
+    admins.map((model) => model.init(this.connection));
   }
 }
 
 export default new Database();
+
+
