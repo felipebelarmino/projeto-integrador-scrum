@@ -3,6 +3,8 @@ import { Router } from "express";
 import UserController from "./app/controllers/UserController";
 import SessionController from "./app/controllers/SessionController";
 import AdminController from "./app/controllers/AdminController";
+import ProdutoController from "./app/controllers/ProdutoController";
+import Produto from "./app/models/Produto";
 
 const routes = new Router();
 
@@ -48,4 +50,9 @@ routes.get("/admin", AdminController.findOneAdminByLogin)
 routes.post("/admin", AdminController.store);
 
 //----------------------------------------------------------------
+
+routes.post("/produtos", ProdutoController.store);
+routes.get("/produtos", ProdutoController.index);
+routes.put("/produtos/:id", ProdutoController.updade);
+routes.delete("/produtos/:id", ProdutoController.delete);
 export default routes;
