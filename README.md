@@ -13,3 +13,11 @@ npm start
 ```
 
 - Base de dados utilizada MySQL
+
+
+- Para criar nova migration:
+npx sequelize-cli migration:generate --name migration-nome
+
+
+- Para executar as migrations:
+npx sequelize-cli db:migrate
