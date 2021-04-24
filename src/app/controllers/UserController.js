@@ -9,7 +9,7 @@ class UserController {
           name: "nome",
           login: "seu-email",
           password: "sua-senha",
-        }
+        },
       });
     }
 
@@ -33,7 +33,7 @@ class UserController {
         login,
         active,
         provider,
-      }
+      },
     });
   }
 

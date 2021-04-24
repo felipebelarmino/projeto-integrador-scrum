@@ -15,11 +15,10 @@ const routes = new Router();
 routes.get("/users/all", UserController.findAllUsers);
 
 //Encontrar user por id
-routes.get("/user/:id", UserController.findOneUserById)
+routes.get("/user/:id", UserController.findOneUserById);
 
 //Encontrar user por login
-routes.get("/user-by-login", UserController.findOneUserByLogin)
-
+routes.get("/user-by-login", UserController.findOneUserByLogin);
 
 //----------------------------------------------------------------
 //POST UserController
@@ -30,18 +29,17 @@ routes.post("/user", UserController.store);
 //Sessão JWT
 routes.post("/session", SessionController.store);
 
-
 //----------------------------------------------------------------
 //GET AdminController
 //----------------------------------------------------------------
 //Exibir todos os admins
-routes.get("/admin/all", AdminController.findAllAdmins)
+routes.get("/admin/all", AdminController.findAllAdmins);
 
 //Encontrar admin por id
-routes.get("/admin/:id", AdminController.findOneAdminById)
+routes.get("/admin/:id", AdminController.findOneAdminById);
 
 //Encontrar admin por login
-routes.get("/admin", AdminController.findOneAdminByLogin)
+routes.get("/admin", AdminController.findOneAdminByLogin);
 
 //----------------------------------------------------------------
 //POST AdminController

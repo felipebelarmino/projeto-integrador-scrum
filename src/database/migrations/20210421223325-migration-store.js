@@ -3,21 +3,21 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     return queryInterface.createTable("stores", {
-      id : {
+      id: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        autoIncrement: true,        
+        autoIncrement: true,
         primaryKey: true,
       },
       cnpj: {
         type: Sequelize.BIGINT,
-        allowNull: false,        
+        allowNull: false,
         unique: true,
       },
       name: {
         type: Sequelize.STRING(45),
         allowNull: false,
-      },            
+      },
       description: {
         type: Sequelize.STRING,
         allowNull: true,
@@ -31,7 +31,7 @@ module.exports = {
         type: Sequelize.DATE,
         allowNull: false,
         defaultValue: Sequelize.NOW,
-      },   
+      },
     });
   },
 

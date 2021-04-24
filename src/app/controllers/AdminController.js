@@ -2,7 +2,7 @@ import AdminModel from "../models/AdminModel";
 
 class AdminController {
   async store(request, response) {
-    console.log(request.body)
+    console.log(request.body);
 
     if (!request.body.name || !request.body.login || !request.body.password) {
       return response.status(400).json({
@@ -11,7 +11,7 @@ class AdminController {
           name: "nome",
           login: "seu-email",
           password: "sua-senha",
-        }
+        },
       });
     }
 
@@ -35,27 +35,33 @@ class AdminController {
         login,
         active,
         provider,
-      }
+      },
     });
   }
 
   //----------------------------------------------------------------
   async findAllAdmins(request, response) {
-    console.log(request.body)
+    console.log(request.body);
 
     const users = await AdminModel.findAll({ where: null });
     if (users.length < 1)
-      return response.json({ message: "Nenhum administrador cadastrado ainda." });
+      return response.json({
+        message: "Nenhum administrador cadastrado ainda.",
+      });
     return response.json(users);
   }
 
   // //----------------------------------------------------------------
 
   async findOneAdminById(request, response) {
-    const admin = await AdminModel.findOne({ where: { id: request.params.id } });
+    const admin = await AdminModel.findOne({
+      where: { id: request.params.id },
+    });
 
     if (!admin) {
-      return response.status(400).json({ error: "Administrador não encontrado!" });
+      return response
+        .status(400)
+        .json({ error: "Administrador não encontrado!" });
     }
 
     return response.status(200).json(admin);
@@ -69,7 +75,9 @@ class AdminController {
     });
 
     if (!admin) {
-      return response.status(400).json({ error: "Administrador não encontrado!" });
+      return response
+        .status(400)
+        .json({ error: "Administrador não encontrado!" });
     }
 
     return response.status(200).json(admin);

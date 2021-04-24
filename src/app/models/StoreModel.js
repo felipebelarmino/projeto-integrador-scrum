@@ -6,13 +6,13 @@ class Store extends Model {
       {
         cnpj: Sequelize.BIGINT,
         name: Sequelize.STRING,
-        description: Sequelize.STRING,            
+        description: Sequelize.STRING,
       },
       {
         sequelize,
       }
     );
-  }    
+  }
 }
 
 export default Store;
