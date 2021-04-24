@@ -22,7 +22,6 @@ class App {
     this.server.use(routes);
     this.server.use(storeRoutes);
     this.server.use(categoryRoutes)
-    
   }
 }
 
