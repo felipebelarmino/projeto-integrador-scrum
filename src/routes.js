@@ -7,7 +7,6 @@ import ProdutoController from "./app/controllers/ProdutoController";
 import Produto from "./app/models/Produto";
 
 const routes = new Router();
-
 //----------------------------------------------------------------
 //GET UserController
 //----------------------------------------------------------------

@@ -1,10 +1,11 @@
 module.exports = {
-  database: "projeto-login-db",
+  database: "db_infoway",
   username: "root",
-  password: "@12345678#",
+  password: "ahnes2021",
   host: "localhost",
   dialect: "mysql",
   define: {
+ //Forçar o sequelize utilizar o nome da tabela desejado
     timestamp: true, // Mostra createdAt...
     underscored: true, //Padronização de tabelas e colunas
     underscoredAll: true, //Padronização de tabelas e colunas
