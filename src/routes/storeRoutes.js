@@ -10,7 +10,7 @@ storeRoutes.post("/stores", StoreController.store);
 storeRoutes.get("/stores", StoreController.findAll);
 
 //Encontrar loja por cnpj
-storeRoutes.get("/stores/:cnpj", StoreController.findByCnpj)
+storeRoutes.get("/stores/:cnpj", StoreController.findByCnpj);
 
 //Atualizar cadastro da loja
 storeRoutes.put("/stores/:cnpj", StoreController.update);
