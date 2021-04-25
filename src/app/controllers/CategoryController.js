@@ -22,8 +22,7 @@ class CategoryController {
       await CategoryModel.create(request.body);
     
       return response.status(200).json({ 
-          message: "Cadastro realizado com sucesso!",        
-        category,                         
+          message: `Categoria ${category} cadastrada com sucesso!`,                                 
       });        
     }  
     
@@ -34,14 +33,15 @@ class CategoryController {
         const categoryUp = await CategoryModel.update(request.body, {
             where: { category: category },
           });
-        
-          if(!categoryUp) {
+          
+         /*
+        if((!categoryUp) || (categoryUp == category)) {
             return response.status(400).json({
-                error: "O campo não pode estar vazio."
+                error: `O campo está vazio ou a categoria ${categoryUp} já existe.`
             });
-          }        
-         // Se não conseguir atualizar, dá erro e retorna zero
-         // Se tudo correr bem, retorna 1
+          } 
+          */
+              
           if (categoryUp == 1) {
             return response.status(200).json({
               message: "Categoria atualizada com sucesso!",
