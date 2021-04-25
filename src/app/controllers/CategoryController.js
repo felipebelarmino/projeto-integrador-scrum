@@ -4,8 +4,8 @@ class CategoryController {
 
     //CREATE
     async store(request, response) {
-
         const { category } = request.body;
+
         const categoryExists = await CategoryModel.findOne({ where: { category } });
         
         if(!category) {
@@ -30,6 +30,7 @@ class CategoryController {
     //UPDATE
     async update(request, response) {
         const category = request.params.category;
+
         const categoryUp = await CategoryModel.update(request.body, {
             where: { category: category },
           });
@@ -87,6 +88,27 @@ class CategoryController {
           }
 
           return response.json(categories);
+      }
+
+      //DELETE BY CATEGORY
+      async delete(request, response) {
+          const category = request.params.category;
+
+          const categoryDel = await CategoryModel.destroy({where: {category : category}});
+
+          if (categoryDel == 1) {
+              response.json({
+                  message: `Categoria ${category} excluída com sucesso!`
+              });
+          }
+          else{
+              response.json({
+                  message: `Não foi possível excluir o cadastro. A categoria ${category} não foi localizada. `
+              })
+          }
+
+        
+
       }
 
 }
