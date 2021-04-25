@@ -13,6 +13,7 @@ class User extends Model {
       },
       {
         sequelize,
+        tableName: "users",
       }
     );
 
@@ -22,11 +23,11 @@ class User extends Model {
       }
     });
 
-    return this; // sempre vai retornar a model reinicializada
+    return this;
   }
 
   checkPassword(password) {
-    return bcrypt.compare(password, this.password_hash); //vai retornar true caso as senha baterem
+    return bcrypt.compare(password, this.password_hash);
   }
 }
 

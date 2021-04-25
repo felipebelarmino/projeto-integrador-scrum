@@ -2,8 +2,6 @@ import AdminModel from "../models/AdminModel";
 
 class AdminController {
   async store(request, response) {
-    console.log(request.body);
-
     if (!request.body.name || !request.body.login || !request.body.password) {
       return response.status(400).json({
         ERROR: "Campos inválidos, favor preencher corretamente no formato:",
@@ -39,10 +37,7 @@ class AdminController {
     });
   }
 
-  //----------------------------------------------------------------
   async findAllAdmins(request, response) {
-    console.log(request.body);
-
     const users = await AdminModel.findAll({ where: null });
     if (users.length < 1)
       return response.json({
@@ -50,8 +45,6 @@ class AdminController {
       });
     return response.json(users);
   }
-
-  // //----------------------------------------------------------------
 
   async findOneAdminById(request, response) {
     const admin = await AdminModel.findOne({
@@ -67,8 +60,6 @@ class AdminController {
     return response.status(200).json(admin);
   }
 
-  // //----------------------------------------------------------------
-
   async findOneAdminByLogin(request, response) {
     const admin = await AdminModel.findOne({
       where: { login: request.body.login },
@@ -81,6 +72,37 @@ class AdminController {
     }
 
     return response.status(200).json(admin);
+  }
+
+  async updateAdmin(request, response) {
+    const { name, login, password } = request.body;
+
+    if (!name || !login || !password) {
+      return response.status(400).json({ message: "Algum campo foi omitido na requisição!",
+      formato: {
+        name: "Nome",
+        login: "Email",
+        password: "Senha",
+        provider: "true ou false",
+        active: "true ou false",
+      } });
+    }
+
+    const id = request.params.id;
+
+    const admin = await AdminModel.update(request.body, {
+      where: { id: id },
+    });
+
+    if (admin == 1) {
+      response.send({
+        message: "Cadastro atualizado com sucesso!",
+      });
+    } else {
+      response.send({
+        message: `Não foi possível atualizar o cadastro.`,
+      });
+    }
   }
 }
 

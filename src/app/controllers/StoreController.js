@@ -32,8 +32,6 @@ class StoreController {
     });
   }
 
-  //----------------------------------------------------------------
-
   async findAll(request, response) {
     const stores = await Store.findAll();
 
@@ -43,8 +41,6 @@ class StoreController {
 
     return response.json(stores);
   }
-
-  //----------------------------------------------------------------
 
   async findByCnpj(request, response) {
     const cnpj = request.params.cnpj;
@@ -68,17 +64,26 @@ class StoreController {
     return response.json(store);
   }
 
-  //----------------------------------------------------------------
-
   async update(request, response) {
+    const { cnpjNumber, name } = request.body;
+
+    if (!cnpjNumber || !name) {
+      return response.status(400).json({
+        message: "Algum campo foi omitido na requisição!",
+        formato: {
+          cnpj: "CNPJ",
+          name: "Nome da loja",
+          description: "campo opcional",
+        },
+      });
+    }
+
     const cnpj = request.params.cnpj;
 
     const store = await Store.update(request.body, {
       where: { cnpj: cnpj },
     });
 
-    // Se não conseguir atualizar, dá erro e retorna zero
-    // Se tudo correr bem, retorna 1
     if (store == 1) {
       response.send({
         message: "Cadastro atualizado com sucesso!",
@@ -90,12 +95,9 @@ class StoreController {
     }
   }
 
-  //----------------------------------------------------------------
-
   async delete(request, response) {
     const cnpj = request.params.cnpj;
 
-    // Retorna a quantidade de itens excluídos
     const deletedNumber = await Store.destroy({
       where: { cnpj: cnpj },
     });

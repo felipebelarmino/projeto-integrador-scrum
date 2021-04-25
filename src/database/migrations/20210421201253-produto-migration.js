@@ -2,27 +2,27 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    return queryInterface.createTable("produtos", {
+    return queryInterface.createTable("products", {
       id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
       },
-      nome: {
+      name: {
         type: Sequelize.STRING,
         allowNull: false,
         unique: true,
       },
-      descricao: {
+      description: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      quantidade: {
+      quantity: {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
-      preco: {
+      price: {
         type: Sequelize.DECIMAL,
         allowNull: false,
       },
@@ -30,11 +30,11 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      imagem: {
+      image: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      disponivel: {
+      available: {
         type: Sequelize.BOOLEAN,
         allowNull: false,
       },
@@ -50,6 +50,6 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    return queryInterface.dropTable("produtos");
+    return queryInterface.dropTable("products");
   },
 };

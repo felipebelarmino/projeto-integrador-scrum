@@ -14,6 +14,7 @@ class AdminModel extends Model {
       },
       {
         sequelize,
+        tableName: "admins",
       }
     );
 
@@ -32,3 +33,4 @@ class AdminModel extends Model {
 }
 
 export default AdminModel;
+

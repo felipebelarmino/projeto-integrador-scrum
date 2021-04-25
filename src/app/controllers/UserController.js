@@ -37,16 +37,12 @@ class UserController {
     });
   }
 
-  //----------------------------------------------------------------
-
   async findAllUsers(request, response) {
     const users = await User.findAll({ where: null });
     if (users.length < 1)
       return response.json({ message: "Nenhum usuário cadastrado ainda." });
     return response.json(users);
   }
-
-  //----------------------------------------------------------------
 
   async findOneUserById(request, response) {
     const user = await User.findOne({ where: { id: request.params.id } });
@@ -57,8 +53,6 @@ class UserController {
 
     return response.status(200).json(user);
   }
-
-  //----------------------------------------------------------------
 
   async findOneUserByLogin(request, response) {
     if (!request.body.login)
@@ -80,38 +74,36 @@ class UserController {
     return response.status(200).json(user);
   }
 
-  //----------------------------------------------------------------
-
   async updateUser(request, response) {
-    if (!request.body || !request.params.id)
-      return response.json({
-        message: "Informações inválidas, ou omitidas na requisição!",
-      });
+    const { name, login, password } = request.body;
 
-    const { id } = request.params;
-
-    const user = await User.findOne({
-      where: { login: request.body.login },
-    });
-
-    if (!user) {
-      return response.status(400).json({ error: "Usuário não encontrado!" });
+    if (!name || !login || !password) {
+      return response.status(400).json({ message: "Algum campo foi omitido na requisição!",
+      formato: {
+        name: "Nome",
+        login: "Email",
+        password: "Senha",
+        provider: "true ou false",
+        active: "true ou false",
+      } });
     }
 
-    const { name, login, provider } = await User.update(request.body);
+    const id = request.params.id;
 
-    return response.json({
-      message: "Usuário alterado com sucesso!",
-      user: {
-        id,
-        name,
-        login,
-        provider,
-      },
+    const user = await User.update(request.body, {
+      where: { id: id },
     });
-  }
 
-  //----------------------------------------------------------------
+    if (user == 1) {
+      response.send({
+        message: "Cadastro atualizado com sucesso!",
+      });
+    } else {
+      response.send({
+        message: `Não foi possível atualizar o cadastro.`,
+      });
+    }
+  }
 
   async deleteUser(request, response) {
     if (!request.body || !request.params.id)

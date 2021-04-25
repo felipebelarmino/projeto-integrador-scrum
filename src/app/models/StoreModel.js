@@ -10,6 +10,7 @@ class Store extends Model {
       },
       {
         sequelize,
+        tableName: "stores",
       }
     );
   }

@@ -2,7 +2,7 @@ import Sequelize from "sequelize";
 import databaseConfig from "../config/database"; //importar credenciais
 import User from "../app/models/User";
 import AdminModel from "../app/models/AdminModel";
-import Produto from "../app/models/Produto";
+import Produto from "../app/models/Product";
 import Store from "../app/models/StoreModel";
 
 const models = [User, AdminModel, Store, Produto];
