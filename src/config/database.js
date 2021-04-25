@@ -1,7 +1,7 @@
 module.exports = {
-  database: "pi_avanade1",
+  database: " ",
   username: "root",
-  password: "4525!Ma630",
+  password: " ",
   host: "localhost",
   dialect: "mysql",
   define: {
