@@ -4,6 +4,7 @@ import storeRoutes from "./routes/storeRoutes";
 import productRoutes from "./routes/productRoutes";
 import sessionRoutes from "./routes/sessionRoutes";
 import adminRoutes from "./routes/adminRoutes";
+import categoryRoutes from "./routes/categoryRoutes";
 
 import "./database/index";
 
@@ -20,7 +21,14 @@ class App {
   }
 
   routes() {
-    this.server.use(userRoutes, storeRoutes, productRoutes, sessionRoutes, adminRoutes);
+    this.server.use(
+      userRoutes,
+      storeRoutes,
+      productRoutes,
+      sessionRoutes,
+      adminRoutes,
+      categoryRoutes
+    );
   }
 }
 
