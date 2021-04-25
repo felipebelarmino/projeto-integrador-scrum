@@ -1,15 +1,18 @@
+import * as Yup from "yup";
 import User from "../models/User";
 
 class UserController {
   async store(request, response) {
-    if (!request.body.name || !request.body.login || !request.body.password) {
+    const schema = Yup.object().shape({
+      name: Yup.string().required(),
+      login: Yup.string().email().required(),
+      password: Yup.string().required().min(6),
+    });
+
+    if (!(await schema.isValid(request.body))) {
       return response.status(400).json({
-        ERROR: "Campos inválidos, favor preencher corretamente no formato:",
-        request: {
-          name: "nome",
-          login: "email",
-          password: "senha",
-        },
+        yup: await schema.isValid(request.body),
+        request: request.body,
       });
     }
 
@@ -75,34 +78,52 @@ class UserController {
   }
 
   async updateUser(request, response) {
-    const { name, login, password } = request.body;
-
-    if (!name || !login || !password) {
-      return response.status(400).json({ message: "Algum campo foi omitido na requisição!",
-      formato: {
-        name: "Nome",
-        login: "Email",
-        password: "Senha",
-        provider: "true ou false",
-        active: "true ou false",
-      } });
-    }
-
-    const id = request.params.id;
-
-    const user = await User.update(request.body, {
-      where: { id: id },
+    const schema = Yup.object().shape({
+      name: Yup.string(),
+      login: Yup.string().email(),
+      oldPassword: Yup.string().min(6),
+      password: Yup.string()
+        .min(6)
+        .when("oldPassword", (oldPassword, field) => {
+          oldPassword ? field.required() : field;
+        }),
+      confirmPassword: Yup.string().when("password", (password, field) => {
+        password ? field.required().oneOf([Yup.ref("password")]) : field;
+      }),
     });
 
-    if (user == 1) {
-      response.send({
-        message: "Cadastro atualizado com sucesso!",
-      });
-    } else {
-      response.send({
-        message: `Não foi possível atualizar o cadastro.`,
-      });
+    if (!(await schema.isValid(request.body))) {
+      return response.status(400).json({ erro: "Falha ao validar campos!" });
     }
+
+    console.log(request.userId);
+
+    const { login, oldPassword } = request.body;
+
+    const user = await User.findByPk(request.userId);
+
+    if (login && login !== user.login) {
+      const userExists = await User.findOne({ where: { login } });
+
+      if (userExists) {
+        return response.status(400).json({ erro: "Usuário já existe!" });
+      }
+    }
+
+    if (oldPassword && !(await user.checkPassword(oldPassword))) {
+      return response.status(400).json({ erro: "Senha não corresponde." });
+    }
+
+    const { name, provider } = await user.update(request.body);
+
+    return response.json({
+      mensagem: "Usuário alterado com sucesso para o seguinte:",
+      usuario: {
+        name,
+        login,
+        provider,
+      },
+    });
   }
 
   async deleteUser(request, response) {
