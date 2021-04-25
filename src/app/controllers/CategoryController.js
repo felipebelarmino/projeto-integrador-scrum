@@ -54,7 +54,7 @@ class CategoryController {
       }
 
       //GET BY CATEGORY
-      async index(request, response) {
+      async show(request, response) {
           const category = request.params.category;
 
           if(!category) {
@@ -74,8 +74,21 @@ class CategoryController {
           }
 
           return response.json(category);
-
       }
+
+      //GET ALL CATEGORIES
+      async index(request, response) {
+          const categories = await CategoryModel.findAll();
+
+          if (categories.lenght < 1) {
+              return response.json({
+                  message: "Nenhuma categoria cadastrada."
+              });
+          }
+
+          return response.json(categories);
+      }
+
 }
 
 export default new CategoryController();

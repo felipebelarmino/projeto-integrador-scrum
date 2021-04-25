@@ -8,7 +8,9 @@ categoryRoutes.post("/category", CategoryController.store);
 //PUT-UPDATE
 categoryRoutes.put("/categories/:category", CategoryController.update);
 //GET-SEARCH BY CATEGORY
-categoryRoutes.get("/categories/:category", CategoryController.index);
+categoryRoutes.get("/categories/:category", CategoryController.show);
+//GET ALL CATEGORIES
+categoryRoutes.get("/categories", CategoryController.index);
 
 
 export default categoryRoutes;
