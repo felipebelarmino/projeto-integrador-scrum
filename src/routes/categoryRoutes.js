@@ -18,5 +18,8 @@ categoryRoutes.get("/categories", CategoryController.index);
 //DELETE BY CATEGORY
 categoryRoutes.delete("/categories/:category", CategoryController.delete);
 
+//DELETE ALL CATEGORIES
+categoryRoutes.delete("/category/:categories", CategoryController.deleteAll);
+
 
 export default categoryRoutes;

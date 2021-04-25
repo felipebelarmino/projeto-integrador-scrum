@@ -21,7 +21,7 @@ class CategoryController {
       
       await CategoryModel.create(request.body);
     
-      return response.json({ 
+      return response.status(200).json({ 
           message: "Cadastro realizado com sucesso!",        
         category,                         
       });        
@@ -43,12 +43,12 @@ class CategoryController {
          // Se não conseguir atualizar, dá erro e retorna zero
          // Se tudo correr bem, retorna 1
           if (categoryUp == 1) {
-            response.send({
+            return response.status(200).json({
               message: "Categoria atualizada com sucesso!",
           });   
 
           } else {
-            response.send({
+            return response.status(400).json({
               message: `Não foi possível atualizar o cadastro. A categoria ${category} não foi encontrada.`,
           });
         }
@@ -74,7 +74,7 @@ class CategoryController {
             });
           }
 
-          return response.json(category);
+          return response.status(200).json(category);
       }
 
       //GET ALL CATEGORIES
@@ -82,12 +82,12 @@ class CategoryController {
           const categories = await CategoryModel.findAll();
 
           if (categories.lenght < 1) {
-              return response.json({
+              return response.status(400).json({
                   message: "Nenhuma categoria cadastrada."
               });
           }
 
-          return response.json(categories);
+          return response.status(200).json(categories);
       }
 
       //DELETE BY CATEGORY
@@ -97,20 +97,33 @@ class CategoryController {
           const categoryDel = await CategoryModel.destroy({where: {category : category}});
 
           if (categoryDel == 1) {
-              response.json({
+              return response.status(200).json({
                   message: `Categoria ${category} excluída com sucesso!`
               });
           }
           else{
-              response.json({
+              return response.status(400).json({
                   message: `Não foi possível excluir o cadastro. A categoria ${category} não foi localizada. `
-              })
-          }
-
-        
-
+              });
+          }      
       }
 
+      //DELETE ALL CATEGORIES
+      async deleteAll(request, response) {
+        
+        const categoryAll = await CategoryModel.destroy({where: {}, truncate: false});
+
+        if (categoryAll) {
+            return response.status(200).json({
+                message: `${categoryAll} categorias foram excluídas com sucesso!`
+            });
+        }
+        else {
+             return response.status(500).json({
+                message: "Erro ao excluir todas as categorias."
+            });
+        }      
+    }
 }
 
 export default new CategoryController();
