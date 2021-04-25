@@ -7,8 +7,8 @@ class UserController {
         ERROR: "Campos inválidos, favor preencher corretamente no formato:",
         request: {
           name: "nome",
-          login: "seu-email",
-          password: "sua-senha",
+          login: "email",
+          password: "senha",
         },
       });
     }
@@ -83,15 +83,14 @@ class UserController {
   //----------------------------------------------------------------
 
   async updateUser(request, response) {
-    if (!request.body || !request.params)
+    if (!request.body || !request.params.id)
       return response.json({
         message: "Informações inválidas, ou omitidas na requisição!",
       });
 
-    const { id } = request.params; //Acha pelo parametro da url ( id )
+    const { id } = request.params;
 
     const user = await User.findOne({
-      //Acha pelo parametro do body ( login )
       where: { login: request.body.login },
     });
 
@@ -110,6 +109,27 @@ class UserController {
         provider,
       },
     });
+  }
+
+  //----------------------------------------------------------------
+
+  async deleteUser(request, response) {
+    if (!request.body || !request.params.id)
+      return response.json({
+        message: "Informações inválidas, ou omitidas na requisição!",
+      });
+
+    const { id } = request.params;
+
+    const deletedUser = await User.destroy({
+      where: { id: id },
+    });
+
+    deletedUser === 1
+      ? response.json({
+          message: "Usuário excluído!",
+        })
+      : response.json({ message: "Usuário não encontrado ou já excluído!" });
   }
 }
 

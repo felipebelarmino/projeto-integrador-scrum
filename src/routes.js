@@ -37,6 +37,19 @@ routes.post("/user/update", UserController.updateUser);
 //Alterar usuário buscando pelo id no params
 routes.post("/user/update/:id", UserController.updateUser);
 
+//DELETE UserController
+//Excluir USer
+routes.delete("/user/:id", UserController.deleteUser);
+
+
+
+
+
+
+
+
+
+
 //----------------------------------------------------------------
 //GET AdminController
 //----------------------------------------------------------------
