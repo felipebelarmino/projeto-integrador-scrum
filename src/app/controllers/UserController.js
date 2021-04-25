@@ -61,6 +61,14 @@ class UserController {
   //----------------------------------------------------------------
 
   async findOneUserByLogin(request, response) {
+    if (!request.body.login)
+      return response.status(400).json({
+        error: "Campo login omitido! Siga o padrão:",
+        body: {
+          login: "email",
+        },
+      });
+
     const user = await User.findOne({
       where: { login: request.body.login },
     });
@@ -70,6 +78,38 @@ class UserController {
     }
 
     return response.status(200).json(user);
+  }
+
+  //----------------------------------------------------------------
+
+  async updateUser(request, response) {
+    if (!request.body || !request.params)
+      return response.json({
+        message: "Informações inválidas, ou omitidas na requisição!",
+      });
+
+    const { id } = request.params; //Acha pelo parametro da url ( id )
+
+    const user = await User.findOne({
+      //Acha pelo parametro do body ( login )
+      where: { login: request.body.login },
+    });
+
+    if (!user) {
+      return response.status(400).json({ error: "Usuário não encontrado!" });
+    }
+
+    const { name, login, provider } = await User.update(request.body);
+
+    return response.json({
+      message: "Usuário alterado com sucesso!",
+      user: {
+        id,
+        name,
+        login,
+        provider,
+      },
+    });
   }
 }
 

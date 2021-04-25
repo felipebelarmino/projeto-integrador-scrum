@@ -12,13 +12,13 @@ const routes = new Router();
 //GET UserController
 //----------------------------------------------------------------
 //Exibir todos users
-routes.get("/users/all", UserController.findAllUsers);
+routes.get("/users", UserController.findAllUsers);
 
 //Encontrar user por id
 routes.get("/user/:id", UserController.findOneUserById);
 
 //Encontrar user por login
-routes.get("/user-by-login", UserController.findOneUserByLogin);
+routes.get("/user-login", UserController.findOneUserByLogin);
 
 //----------------------------------------------------------------
 //POST UserController
@@ -28,6 +28,14 @@ routes.post("/user", UserController.store);
 
 //Sessão JWT
 routes.post("/session", SessionController.store);
+//----------------------------------------------------------------
+//GET UserController
+//----------------------------------------------------------------
+//Alterar usuário buscando pelo email no body
+routes.post("/user/update", UserController.updateUser);
+
+//Alterar usuário buscando pelo id no params
+routes.post("/user/update/:id", UserController.updateUser);
 
 //----------------------------------------------------------------
 //GET AdminController

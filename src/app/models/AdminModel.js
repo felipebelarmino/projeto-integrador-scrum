@@ -23,8 +23,6 @@ class AdminModel extends Model {
       }
     });
 
-    console.log(this);
-
     return this;
   }
 
