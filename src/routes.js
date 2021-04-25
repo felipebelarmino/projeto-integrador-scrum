@@ -8,8 +8,8 @@ import authMiddleware from "./app/middlewares/auth";
 const routes = new Router();
 const upload = multer(multerConfig);
 
-routes.post("/session", SessionController.store);
-routes.use(authMiddleware);
+//routes.post("/session", SessionController.store);
+//routes.use(authMiddleware);
 routes.post("/files", upload.single("file"), FileController.store);
 
 export default routes;

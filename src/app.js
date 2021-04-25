@@ -5,6 +5,7 @@ import storeRoutes from "./routes/storeRoutes";
 import productRoutes from "./routes/productRoutes";
 import adminRoutes from "./routes/adminRoutes";
 import categoryRoutes from "./routes/categoryRoutes";
+import addressRoutes from "./routes/addressRoutes";
 
 import "./database/index";
 
@@ -27,7 +28,8 @@ class App {
       storeRoutes,
       productRoutes,
       adminRoutes,
-      categoryRoutes
+      categoryRoutes,
+      addressRoutes
     );
   }
 }
