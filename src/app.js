@@ -6,6 +6,7 @@ import productRoutes from "./routes/productRoutes";
 import adminRoutes from "./routes/adminRoutes";
 import categoryRoutes from "./routes/categoryRoutes";
 import addressRoutes from "./routes/addressRoutes";
+import orderRoutes from "./routes/orderRoutes";
 
 import "./database/index";
 
@@ -29,7 +30,8 @@ class App {
       productRoutes,
       adminRoutes,
       categoryRoutes,
-      addressRoutes
+      addressRoutes,
+      orderRoutes
     );
   }
 }

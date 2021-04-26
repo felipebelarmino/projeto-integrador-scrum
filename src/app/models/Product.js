@@ -18,6 +18,18 @@ class Product extends Model {
       }
     );
   }
+
+  // N produtos pertencem a N pedidos
+  static associate(models) {
+    this.belongsToMany(
+      models.Order, // nome da model à qual pertence
+      { 
+        foreignKey: 'product_id', // nome da chave estrangeira que se refere a esse model na tabela de ligação order-product
+        through: 'order_products', // nome da tabela de ligação
+        as: 'orders' // apelido para o campo pedido
+      }
+    )
+  }  
 }
 
 export default Product;
