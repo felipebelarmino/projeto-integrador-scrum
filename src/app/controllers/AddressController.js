@@ -26,7 +26,6 @@ class AddressController {
     });
   }
 
-
   async findAllAddress(request, response) {
     const users = await AddressModel.findAll();
     if (users.length < 1)

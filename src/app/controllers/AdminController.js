@@ -78,14 +78,16 @@ class AdminController {
     const { name, login, password } = request.body;
 
     if (!name || !login || !password) {
-      return response.status(400).json({ message: "Algum campo foi omitido na requisição!",
-      formato: {
-        name: "Nome",
-        login: "Email",
-        password: "Senha",
-        provider: "true ou false",
-        active: "true ou false",
-      } });
+      return response.status(400).json({
+        message: "Algum campo foi omitido na requisição!",
+        formato: {
+          name: "Nome",
+          login: "Email",
+          password: "Senha",
+          provider: "true ou false",
+          active: "true ou false",
+        },
+      });
     }
 
     const id = request.params.id;

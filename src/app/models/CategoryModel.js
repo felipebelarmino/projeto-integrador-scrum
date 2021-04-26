@@ -9,7 +9,7 @@ class CategoryModel extends Model {
           type: Sequelize.INTEGER,
           references: "products",
           referencesKey: "id",
-        }
+        },
       },
       {
         sequelize,
@@ -17,7 +17,7 @@ class CategoryModel extends Model {
       }
     );
   }
-/*
+  /*
   //1 categoria contém N produtos
   static associate(models) {
     this.belongsTo(

@@ -26,32 +26,34 @@ class CategoryController {
     });
   }
 
-    //UPDATE
-    async update(request, response) {
-      const category = request.params.category;
-      const categoryUp = request.body.category;
-      const categoryExists = await CategoryModel.findOne({ where: {category: categoryUp }});
-  
-      if((!categoryUp) || (categoryUp.trim().length == 0) || (categoryExists)) {
-        return response.status(400).json({
-            error: `O campo está vazio ou a categoria ${categoryUp} já existe.`
-        });
-      } 
-  
-      const categoryNew = await CategoryModel.update(request.body, {
-        where: { category: category },
-      });    
-  
-      if (categoryNew == 1) {
-        return response.status(200).json({
-          message: "Categoria atualizada com sucesso!",
-        });
-      } else {
-        return response.status(400).json({
-          message: `Não foi possível atualizar o cadastro. A categoria ${category} não foi encontrada.`,
-        });
-      }
+  //UPDATE
+  async update(request, response) {
+    const category = request.params.category;
+    const categoryUp = request.body.category;
+    const categoryExists = await CategoryModel.findOne({
+      where: { category: categoryUp },
+    });
+
+    if (!categoryUp || categoryUp.trim().length == 0 || categoryExists) {
+      return response.status(400).json({
+        error: `O campo está vazio ou a categoria ${categoryUp} já existe.`,
+      });
     }
+
+    const categoryNew = await CategoryModel.update(request.body, {
+      where: { category: category },
+    });
+
+    if (categoryNew == 1) {
+      return response.status(200).json({
+        message: "Categoria atualizada com sucesso!",
+      });
+    } else {
+      return response.status(400).json({
+        message: `Não foi possível atualizar o cadastro. A categoria ${category} não foi encontrada.`,
+      });
+    }
+  }
 
   //GET BY CATEGORY
   async show(request, response) {
