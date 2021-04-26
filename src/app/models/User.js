@@ -7,7 +7,7 @@ class User extends Model {
       {
         name: Sequelize.STRING,
         login: Sequelize.STRING,
-        password: Sequelize.VIRTUAL, // Virtual quer dizer que ele vai existir só no código e não no banco
+        password: Sequelize.VIRTUAL,
         password_hash: Sequelize.STRING,
         provider: Sequelize.BOOLEAN,
       },
@@ -27,11 +27,11 @@ class User extends Model {
   }
 
   static associate(models) {
-    this.belongsTo(models.File, { foreignKey: "avatar_id", as: "avatar" });
+    this.belongsTo(models.FileModel, { foreignKey: "avatar_id", as: "avatar" });
   }
 
   checkPassword(password) {
-    return bcrypt.compare(password, this.password_hash); //vai retornar true caso as senha baterem
+    return bcrypt.compare(password, this.password_hash);
   }
 }
 

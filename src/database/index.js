@@ -29,15 +29,12 @@ class Database {
   init() {
     this.connection = new Sequelize(databaseConfig);
 
-    models
-      .map((model) => model.init(this.connection))
-      // .map(
-      //   (model) => model.associate && model.associate(this.connection.models)
-      // );
+    models.map((model) => model.init(this.connection));
 
     AddressModel.associate(this.connection.models);
     Product.associate(this.connection.models);
     Order.associate(this.connection.models);
+    FileModel.associate(this.connection.models);
     // CategoryModel.associate(this.connection.models);
   }
 }
