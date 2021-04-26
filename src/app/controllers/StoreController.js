@@ -115,4 +115,3 @@ class StoreController {
 }
 
 export default new StoreController();
-

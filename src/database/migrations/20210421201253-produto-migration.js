@@ -9,6 +9,13 @@ module.exports = {
         autoIncrement: true,
         primaryKey: true,
       },
+      category_id: {
+        type: Sequelize.INTEGER,
+        references: {model: "categories", key: "id"},
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+        allowNull: true,
+      },
       name: {
         type: Sequelize.STRING,
         allowNull: false,

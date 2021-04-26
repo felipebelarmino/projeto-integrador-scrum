@@ -29,20 +29,22 @@ class CategoryController {
   //UPDATE
   async update(request, response) {
     const category = request.params.category;
+    const categoryUp = request.body.category;
+    const categoryExists = await CategoryModel.findOne({
+      where: { category: categoryUp },
+    });
 
-    const categoryUp = await CategoryModel.update(request.body, {
+    if (!categoryUp || categoryUp.trim().length == 0 || categoryExists) {
+      return response.status(400).json({
+        error: `O campo está vazio ou a categoria ${categoryUp} já existe.`,
+      });
+    }
+
+    const categoryNew = await CategoryModel.update(request.body, {
       where: { category: category },
     });
 
-    /*
-        if((!categoryUp) || (categoryUp == category)) {
-            return response.status(400).json({
-                error: `O campo está vazio ou a categoria ${categoryUp} já existe.`
-            });
-          } 
-          */
-
-    if (categoryUp == 1) {
+    if (categoryNew == 1) {
       return response.status(200).json({
         message: "Categoria atualizada com sucesso!",
       });

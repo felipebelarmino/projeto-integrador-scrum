@@ -33,4 +33,3 @@ class AdminModel extends Model {
 }
 
 export default AdminModel;
-

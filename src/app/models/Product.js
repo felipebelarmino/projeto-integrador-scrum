@@ -11,6 +11,11 @@ class Product extends Model {
         sku: Sequelize.STRING,
         image: Sequelize.STRING,
         available: Sequelize.BOOLEAN,
+        category_id: {
+          type: Sequelize.INTEGER,
+          references: "categories",
+          referencesKey: "id",
+        }
       },
       { 
         sequelize,
@@ -35,13 +40,16 @@ class Product extends Model {
   static associate(models) {
     this.belongsToMany(
       models.Order, // nome da model à qual pertence
-      { 
-        foreignKey: 'product_id', // nome da chave estrangeira que se refere a esse model na tabela de ligação order-product
-        through: 'order_products', // nome da tabela de ligação
-        as: 'orders' // apelido para o campo pedido
+      {
+        foreignKey: "product_id", // nome da chave estrangeira que se refere a esse model na tabela de ligação order-product
+        through: "order_products", // nome da tabela de ligação
+        as: "orders", // apelido para o campo pedido
       }
-    )
-  }  
+    );
+    this.belongsTo(models.CategoryModel, {
+      foreignKey: "category_id",
+    });
+  }
 }
 
 export default Product;

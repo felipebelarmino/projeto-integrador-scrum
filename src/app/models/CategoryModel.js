@@ -12,5 +12,13 @@ class CategoryModel extends Model {
       }
     );
   }
+  /*
+    //1 categoria contém N produtos
+    */
+  // static associate(models) {
+  //   this.belongsTo(models.Product, {
+  //     foreignKey: "product_id",
+  //   });
+  // }
 }
 export default CategoryModel;

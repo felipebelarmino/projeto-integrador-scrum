@@ -7,7 +7,7 @@ class User extends Model {
       {
         name: Sequelize.STRING,
         login: Sequelize.STRING,
-        password: Sequelize.VIRTUAL, // Virtual quer dizer que ele vai existir só no código e não no banco
+        password: Sequelize.VIRTUAL,
         password_hash: Sequelize.STRING,
         provider: Sequelize.BOOLEAN,
       },
@@ -24,6 +24,10 @@ class User extends Model {
     });
 
     return this;
+  }
+
+  static associate(models) {
+    this.belongsTo(models.FileModel, { foreignKey: "avatar_id", as: "avatar" });
   }
 
   checkPassword(password) {
