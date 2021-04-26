@@ -22,7 +22,8 @@ class Database {
 
     AddressModel.associate(this.connection.models);
     Product.associate(this.connection.models); 
-    Order.associate(this.connection.models);    
+    Order.associate(this.connection.models);
+    //CategoryModel.associate(this.connection.models);      
   }
 }
 
