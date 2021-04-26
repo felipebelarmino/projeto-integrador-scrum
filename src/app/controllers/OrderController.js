@@ -74,9 +74,8 @@ class OrderController {
       const product = await Product.findByPk(item.product_id);      
 
       // Remove a quantidade de produtos disponíveis
-      product.quantity -= item.quantity;
-      await product.save({ fields: ['quantity'] });
-
+      await product.removeQuantity(item.quantity);      
+      
       // Obtém preço e calcula o subtotal
       const price = product.dataValues.price;
       const subtotal = item.quantity * price;

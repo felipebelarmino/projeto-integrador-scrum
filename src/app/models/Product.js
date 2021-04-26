@@ -19,6 +19,11 @@ class Product extends Model {
     );
   }
 
+  async removeQuantity(itemsToBeRemoved){
+    this.quantity -= itemsToBeRemoved;
+    await this.save({ fields: ['quantity'] });
+  }
+
   // N produtos pertencem a N pedidos
   static associate(models) {
     this.belongsToMany(
@@ -29,7 +34,7 @@ class Product extends Model {
         as: 'orders' // apelido para o campo pedido
       }
     )
-  }  
+  }
 }
 
 export default Product;
