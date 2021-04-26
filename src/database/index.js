@@ -10,7 +10,17 @@ import AddressModel from "../app/models/AddressModel";
 import Order from "../app/models/Order";
 import OrderProduct from "../app/models/OrderProduct";
 
-const models = [User, AdminModel, Store, Product, CategoryModel, FileModel, AddressModel, Order, OrderProduct];
+const models = [
+  User,
+  AdminModel,
+  Store,
+  Product,
+  CategoryModel,
+  FileModel,
+  AddressModel,
+  Order,
+  OrderProduct,
+];
 
 class Database {
   constructor() {
@@ -18,12 +28,17 @@ class Database {
   }
   init() {
     this.connection = new Sequelize(databaseConfig);
-    models.map((model) => model.init(this.connection));
+
+    models
+      .map((model) => model.init(this.connection))
+      // .map(
+      //   (model) => model.associate && model.associate(this.connection.models)
+      // );
 
     AddressModel.associate(this.connection.models);
-    Product.associate(this.connection.models); 
+    Product.associate(this.connection.models);
     Order.associate(this.connection.models);
-    //CategoryModel.associate(this.connection.models);      
+    // CategoryModel.associate(this.connection.models);
   }
 }
 

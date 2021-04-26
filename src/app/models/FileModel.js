@@ -1,19 +1,24 @@
 import Sequelize, { Model } from "sequelize";
 
-class FileModel extends Model {
+class File extends Model {
   static init(sequelize) {
     super.init(
       {
         name: Sequelize.STRING,
         path: Sequelize.STRING,
+        url: {
+          type: Sequelize.VIRTUAL,
+          get() {
+            return `http://localhost:3030/${this.path}`
+          }
+        }
       },
       {
         sequelize,
-        tableName: "files",
       }
     );
     return this;
   }
 }
 
-export default FileModel;
+export default File;
