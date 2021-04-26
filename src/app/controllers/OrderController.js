@@ -85,7 +85,7 @@ class OrderController {
 
     // Se todos os produtos e os cálculos estiverem ok
     // Registra o pedido...
-    let order = await Order.create(request.body.total);
+    let order = await Order.create(request.body);
     
     // ... E os itens
     // Para cada item do pedido:  
@@ -112,8 +112,8 @@ class OrderController {
         
     return response.json({
       message: "Pedido efetuado com sucesso!",
-      products,
       total,
+      products
     });
   }
 }
