@@ -12,16 +12,23 @@ class Product extends Model {
         image: Sequelize.STRING,
         available: Sequelize.BOOLEAN,
       },
-      {
+      { 
         sequelize,
-        tableName: "products",
+        tableName: "products",        
       }
     );
   }
 
+  // Remove quantidade do produto do banco de dados
   async removeQuantity(itemsToBeRemoved){
-    this.quantity -= itemsToBeRemoved;
-    await this.save({ fields: ['quantity'] });
+    this.quantity -= itemsToBeRemoved;        
+
+    // Se a quantidade de produtos chegar a zero, automaticamente ficará indisponível
+    if (this.quantity === 0) {
+      this.available = false;
+    }
+
+    await this.save({ fields: ['quantity', 'available'] });    
   }
 
   // N produtos pertencem a N pedidos
@@ -34,7 +41,7 @@ class Product extends Model {
         as: 'orders' // apelido para o campo pedido
       }
     )
-  }
+  }  
 }
 
 export default Product;

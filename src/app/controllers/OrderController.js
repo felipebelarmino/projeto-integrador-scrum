@@ -47,6 +47,8 @@ class OrderController {
       });
     }
     
+    let total = 0;
+
     // Para cada item do pedido:  
     for (const item of products) {
       // Confere se existe um registro dele no banco de dados
@@ -55,18 +57,34 @@ class OrderController {
         return response.status(400).json({ error: `Erro no pedido. Produto com #id ${item.product_id} não encontrado.` });
       }
 
-      // Verifica se há quantidade suficiente no estoque
-      if (product.dataValues.quantity < item.quantity) {        
-        return response.status(400).json({ error: `Erro no pedido. Quantidade insuficiente no estoque do produto #id ${item.product_id}.` });
+      // Se o produto estiver indisponível ou houver quantidade insuficiente no estoque
+      if (!product.available || product.dataValues.quantity < item.quantity) {        
+        return response.status(400).json({ error: `Erro no pedido. Produto #id ${item.product_id} indisponível ou quantidade insuficiente no estoque.` });
       }
+
+      // Obtém preço e calcula o subtotal
+      item.price = product.dataValues.price;
+      const subtotal = item.quantity * product.dataValues.price;
+
+      // Verifica se esse subtotal está igual ao recebido pelo front
+      if (subtotal !== item.subtotal) {        
+        return response.status(400).json({ error: `Erro no pedido. Valor subtotal do produto #id ${item.product_id} não confere.` });
+      }
+
+      // Soma o valor ao total        
+      total = total + subtotal;
     }
 
-    // Se todos os produtos estiverem ok
-    // Registra o pedido, mas com o campo "total" zerado (será adicionado mais à frente no BD)
-    let order = await Order.create();
-    
-    let total = 0;
+    // Verifica se o total calculado está igual ao recebido pelo front
+    if (total !== request.body.total) {        
+      return response.status(400).json({ error: `Erro no pedido. Valor total não confere.` });
+    }
 
+    // Se todos os produtos e os cálculos estiverem ok
+    // Registra o pedido...
+    let order = await Order.create(request.body.total);
+    
+    // ... E os itens
     // Para cada item do pedido:  
     for (const item of products) {
 
@@ -75,33 +93,20 @@ class OrderController {
 
       // Remove a quantidade de produtos disponíveis
       await product.removeQuantity(item.quantity);      
-      
-      // Obtém preço e calcula o subtotal
-      const price = product.dataValues.price;
-      const subtotal = item.quantity * price;
-
-      // Soma o valor ao total        
-      total = total + subtotal;
-      console.log('\nsomando subtotal ao total', subtotal, "\n")
                     
       // Adiciona o registro na tabela de ligação order-product
       await OrderProduct.create({
-        price,
+        price: item.price,
         quantity: item.quantity,
-        subtotal,        
+        subtotal: item.subtotal,        
         order_id: order.id,
         product_id: item.product_id,
       });
 
       // Registra informações do produto somente para exibir no response:
       item.name = product.dataValues.name;
-      item.price = product.dataValues.price;
-      item.subtotal = subtotal;
-    }
-    
-    // Adiciona o valor do total do pedido no banco de dados        
-    order.total = total;    
-    await order.save({ fields: ['total'] });        
+      item.price = product.dataValues.price;      
+    }    
         
     return response.json({
       message: "Pedido efetuado com sucesso!",
