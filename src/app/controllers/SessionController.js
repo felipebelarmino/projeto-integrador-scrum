@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
 import User from "../models/User";
+import AdminModel from "../models/AdminModel";
 import authConfig from "../../config/auth";
 
 class SessionController {
@@ -28,6 +29,32 @@ class SessionController {
       }),
     });
   }
+
+  async adminStore(request, response) {
+    const { login, password } = request.body;
+    const user = await AdminModel.findOne({ where: { login } });
+
+    if (!user) {
+      return response.status(401).json({ error: "Usuário não existe" });
+    }
+
+    if (!(await user.checkPassword(password))) {
+      return response.status(401).json({ error: "Senha não confere" });
+    }
+
+    const { id, name } = user;
+
+    return response.json({
+      user: {
+        id,
+        name,
+        login,
+      },
+      token: jwt.sign({ id }, authConfig.secret, {
+        expiresIn: authConfig.expiresIn,
+      }),
+    });
+  }  
 }
 
 export default new SessionController();
