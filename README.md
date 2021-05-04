@@ -37,3 +37,32 @@ npx sequelize-cli migration:generate --name migration-nome
 ```
 npx sequelize-cli db:migrate
 ```
+
+&nbsp;
+
+##### Para criar um novo pedido de compra
+
+Rota: http://localhost:3030/user/1/order
+
+Exemplo:
+
+```
+{
+  "total": 650,
+  "products":
+  [
+    {
+      "product_id": 1,
+      "quantity": 1,
+      "subtotal": 150
+    },
+    {
+      "product_id": 3,
+      "quantity": 10,
+      "subtotal": 500
+    }
+  ]
+}
+```
+
+Obs.: Os valores de subtotal e total precisam estar corretos.
