@@ -10,11 +10,12 @@ module.exports = {
         primaryKey: true,
       },
       category_id: {
-        type: Sequelize.INTEGER,
-        references: {model: "categories", key: "id"},
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
-        allowNull: true,
+        type: Sequelize.STRING,
+        allowNull: false,
+        // references: { model: "categories", key: "id" },
+        // onUpdate: "CASCADE",
+        // onDelete: "CASCADE",
+        // allowNull: true,
       },
       name: {
         type: Sequelize.STRING,
@@ -60,3 +61,4 @@ module.exports = {
     return queryInterface.dropTable("products");
   },
 };
+
