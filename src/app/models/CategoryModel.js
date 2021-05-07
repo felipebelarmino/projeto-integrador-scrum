@@ -5,6 +5,7 @@ class CategoryModel extends Model {
     super.init(
       {
         category: Sequelize.STRING,
+        featured: Sequelize.BOOLEAN
       },
       {
         sequelize,

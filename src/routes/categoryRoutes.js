@@ -7,19 +7,19 @@ const categoryRoutes = new Router();
 categoryRoutes.post("/category", CategoryController.store);
 
 //PUT-UPDATE
-categoryRoutes.put("/categories/:category", CategoryController.update);
+categoryRoutes.put("/category/:category", CategoryController.update);
 
 //GET-SEARCH BY CATEGORY
-categoryRoutes.get("/categories/:category", CategoryController.show);
+categoryRoutes.get("/category/:category", CategoryController.show);
 
 //GET ALL CATEGORIES
-categoryRoutes.get("/categories", CategoryController.index);
+categoryRoutes.get("/category", CategoryController.index);
 
 //DELETE BY CATEGORY
-categoryRoutes.delete("/categories/:category", CategoryController.delete);
+categoryRoutes.delete("/category/:category", CategoryController.delete);
 
 //DELETE ALL CATEGORIES
-categoryRoutes.delete("/category/:categories", CategoryController.deleteAll);
+categoryRoutes.delete("/category/", CategoryController.deleteAll);
 
 
 export default categoryRoutes;
