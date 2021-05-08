@@ -11,13 +11,18 @@ class Product extends Model {
         sku: Sequelize.STRING,
         image: Sequelize.STRING,
         available: Sequelize.BOOLEAN,
-        category_id: Sequelize.STRING,
-        
-        // {
-        //   type: Sequelize.INTEGER,
-        //   references: "categories",
-        //   referencesKey: "id",
-        // }
+        featured: Sequelize.BOOLEAN, 
+        category_id:
+        {
+          type: Sequelize.INTEGER,
+          refereces: {
+            model: "categories",
+            key: "id"
+          },
+          onUpdate: "CASCADE",
+          onDelete: "SET NULL",
+          allowNull: false,
+        },
       },
       { 
         sequelize,
@@ -48,9 +53,11 @@ class Product extends Model {
         as: "orders", // apelido para o campo pedido
       }
     );
-    // this.belongsTo(models.CategoryModel, {
-    //   foreignKey: "category_id",
-    // });
+
+    this.belongsTo(models.CategoryModel, {
+      foreignKey: "category_id",
+      as: "category"
+    });
   }
 }
 
