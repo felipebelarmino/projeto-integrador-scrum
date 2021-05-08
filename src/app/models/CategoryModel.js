@@ -13,13 +13,12 @@ class CategoryModel extends Model {
       }
     );
   }
-  /*
-    //1 categoria contém N produtos
-    */
-  // static associate(models) {
-  //   this.belongsTo(models.Product, {
-  //     foreignKey: "product_id",
-  //   });
-  // }
+  
+  //1 categoria contém N produtos  
+  static associate(models) {
+    this.hasMany(models.Product, {
+      as: "products",
+    });
+  }
 }
 export default CategoryModel;

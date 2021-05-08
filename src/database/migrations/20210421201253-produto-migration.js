@@ -8,15 +8,7 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-      },
-      category_id: {
-        type: Sequelize.STRING,
-        allowNull: false,
-        // references: { model: "categories", key: "id" },
-        // onUpdate: "CASCADE",
-        // onDelete: "CASCADE",
-        // allowNull: true,
-      },
+      },      
       name: {
         type: Sequelize.STRING,
         allowNull: false,
@@ -45,6 +37,17 @@ module.exports = {
       available: {
         type: Sequelize.BOOLEAN,
         allowNull: false,
+      },
+      featured: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
+      },
+      category_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: { model: "categories", key: "id" },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",        
       },
       created_at: {
         type: Sequelize.DATE,

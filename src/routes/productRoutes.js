@@ -6,12 +6,16 @@ const productRoutes = new Router();
 //Cadastrar produto
 productRoutes.post("/product", ProductController.store);
 
-//Listar todos os produtos
-productRoutes.get("/products", ProductController.findAllProducts);
+//Listar todos os produtos com ou sem filtro (query) específico
+//Exemplo: http://localhost:porta/product?name=nome-do-produto
+productRoutes.get("/product", ProductController.findAllProducts);
+
+// Obter produto por id
+productRoutes.get("/product/:id", ProductController.findProductById);
 
 //Listar produtos por nome (QUERY)
-//http://localhost:porta/products?name=nome-do-produto
-productRoutes.get("/products-query", ProductController.findProductsByName);
+//http://localhost:porta/product?name=nome-do-produto
+// productRoutes.get("/product/:name", ProductController.findProductsByName);
 
 //Alterar produto
 productRoutes.put("/product/:id", ProductController.updateProduct);

@@ -15,7 +15,7 @@ module.exports = {
       },
       featured: {
         type: Sequelize.BOOLEAN,
-        defaultValue: false
+        defaultValue: false,
       },
       created_at: {
         type: Sequelize.DATE,
