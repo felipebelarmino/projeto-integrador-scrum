@@ -9,7 +9,7 @@ const adminRoutes = new Router();
 adminRoutes.post("/admin/session", SessionController.adminStore);
 
 //Autenticar
-adminRoutes.use(authMiddleware);
+// adminRoutes.use(authMiddleware);
 
 //Exibir todos os admins
 adminRoutes.get("/admin/all", AdminController.findAllAdmins);
