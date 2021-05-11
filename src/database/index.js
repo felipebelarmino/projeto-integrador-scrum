@@ -31,6 +31,7 @@ class Database {
     Product.associate(this.connection.models);
     Order.associate(this.connection.models);
     FileModel.associate(this.connection.models);
+    // User.associate(this.connection.models);
     // CategoryModel.associate(this.connection.models);
   }
 }

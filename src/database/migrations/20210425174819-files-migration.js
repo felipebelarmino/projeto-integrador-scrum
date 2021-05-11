@@ -20,6 +20,10 @@ module.exports = {
         allowNull: false,
         unique: true,
       },
+      foreignKey: {
+        type: Sequelize.INTEGER,
+        allowNull: true,
+      },
       created_at: {
         type: Sequelize.DATE,
         allowNull: false,

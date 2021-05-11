@@ -15,7 +15,7 @@ class FileModel extends Model {
       },
       {
         sequelize,
-        tableName: "files",
+        tableName: 'files',
       }
     );
     return this;
@@ -32,3 +32,4 @@ class FileModel extends Model {
 }
 
 export default FileModel;
+

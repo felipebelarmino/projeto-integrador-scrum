@@ -78,6 +78,9 @@ class UserController {
   }
 //----------------------------------------------------------------
   async updateUser(request, response) {
+
+    console.log(request.body)
+
     const schema = Yup.object().shape({
       name: Yup.string(),
       login: Yup.string().email(),
@@ -114,18 +117,17 @@ class UserController {
       return response.status(400).json({ erro: "Senha não corresponde." });
     }
 
-    const { name, provider, avatar_id } = await user.update(request.body);
+    const updated = await user.update(request.body);
 
     return response.json({
       mensagem: "Usuário alterado com sucesso para o seguinte:",
-      usuario: {
-        name,
-        login,
-        provider,
-        avatar_id,
-      },
+      usuario: updated
     });
   }
+  //---------
+
+  
+
 
   //----------------------------------------------------------------
   async deleteUser(request, response) {
