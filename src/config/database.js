@@ -1,5 +1,5 @@
 module.exports = {
-  database: "projeto-login-db",
+  database: "db_infoway",
   username: "root",
   password: "042319@@luna",
   host: "localhost",

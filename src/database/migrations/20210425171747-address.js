@@ -13,10 +13,6 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      endereco: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
       numero: {
         type: Sequelize.INTEGER,
         allowNull: false,
