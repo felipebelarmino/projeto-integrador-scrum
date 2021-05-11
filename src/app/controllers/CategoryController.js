@@ -1,4 +1,5 @@
 import CategoryModel from "../models/CategoryModel";
+const { Op } = require("sequelize");
 
 class CategoryController {
   //CREATE
@@ -77,15 +78,17 @@ class CategoryController {
 
     return response.status(200).json(category);
   }
-  
+
   //GET ALL CATEGORIES
   async index(request, response) {
-
     let { key, value, complete } = request.query;
-    
-    let totalMatch = complete === true ? '%' : '';    
-    let condition = (key && value) ? { [key]: { [Op.like]: `${totalMatch}${value}${totalMatch}` } } : null;
-    
+
+    let totalMatch = complete === true ? "" : "%";
+    let condition =
+      key && value
+        ? { [key]: { [Op.like]: `${totalMatch}${value}${totalMatch}` } }
+        : null;
+
     const categories = await CategoryModel.findAll({ where: condition });
 
     if (categories.lenght < 1) {

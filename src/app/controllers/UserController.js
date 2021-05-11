@@ -128,7 +128,6 @@ class UserController {
   }
 
   //----------------------------------------------------------------
-
   async deleteUser(request, response) {
     if (!request.body || !request.params.id)
       return response.json({

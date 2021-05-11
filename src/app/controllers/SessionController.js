@@ -42,13 +42,14 @@ class SessionController {
       return response.status(401).json({ error: "Senha não confere" });
     }
 
-    const { id, name } = user;
+    const { id, name, provider } = user;
 
     return response.json({
       user: {
         id,
         name,
         login,
+        provider
       },
       token: jwt.sign({ id }, authConfig.secret, {
         expiresIn: authConfig.expiresIn,
