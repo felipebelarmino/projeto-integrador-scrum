@@ -15,7 +15,6 @@ class AddressController {
       address: {
         id,
         logradouro,
-        endereco,
         numero,
         complemento,
         bairro,
@@ -38,7 +37,6 @@ class AddressController {
   async updateAddress(request, response) {
     const {
       logradouro,
-      endereco,
       numero,
       complemento,
       bairro,
@@ -49,7 +47,6 @@ class AddressController {
 
     if (
       !logradouro ||
-      !endereco ||
       !numero ||
       !complemento ||
       !bairro ||
@@ -61,7 +58,6 @@ class AddressController {
         message: "Algum campo foi omitido na requisição!",
         formato: {
           logradouro: "rua, avenida...",
-          endereco: "nome da rua",
           numero: "número",
           complemento: "apartamento, casa, trabalho",
           bairro: "bairro",
