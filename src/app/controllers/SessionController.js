@@ -1,6 +1,5 @@
 import jwt from "jsonwebtoken";
 import User from "../models/User";
-import AdminModel from "../models/AdminModel";
 import authConfig from "../../config/auth";
 
 class SessionController {

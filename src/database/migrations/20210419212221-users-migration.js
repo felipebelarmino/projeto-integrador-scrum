@@ -10,11 +10,28 @@ module.exports = {
         primaryKey: true,
       },
       name: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(20),
+        allowNull: false,
+      },
+      surname: {
+        type: Sequelize.STRING(20),
+        allowNull: false,
+      },
+      cpf: {
+        type: Sequelize.BIGINT(11),
+        allowNull: false,
+        unique: true,
+      },
+      ddd: {
+        type: Sequelize.TINYINT(2),
+        allowNull: false,
+      },
+      phone: {
+        type: Sequelize.INTEGER(9),
         allowNull: false,
       },
       login: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING (45),
         allowNull: false,
         unique: true,
       },

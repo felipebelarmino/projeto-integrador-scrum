@@ -1,7 +1,5 @@
 import express from "express";
-import storeRoutes from "./routes/storeRoutes";
 import productRoutes from "./routes/productRoutes";
-import adminRoutes from "./routes/adminRoutes";
 import categoryRoutes from "./routes/categoryRoutes";
 import addressRoutes from "./routes/addressRoutes";
 import orderRoutes from "./routes/orderRoutes";
@@ -34,9 +32,7 @@ class App {
 
   routes() {
     this.server.use(
-      storeRoutes,
       productRoutes,
-      adminRoutes,
       categoryRoutes,
       addressRoutes,
       orderRoutes,

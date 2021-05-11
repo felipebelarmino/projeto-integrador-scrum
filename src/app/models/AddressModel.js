@@ -5,7 +5,6 @@ class Address extends Model {
     super.init(
       {
         logradouro: Sequelize.STRING,
-        endereco: Sequelize.STRING,
         numero: Sequelize.INTEGER,
         complemento: Sequelize.STRING,
         bairro: Sequelize.STRING,
