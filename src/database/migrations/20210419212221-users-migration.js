@@ -31,7 +31,7 @@ module.exports = {
         allowNull: true,
       },
       login: {
-        type: Sequelize.STRING (45),
+        type: Sequelize.STRING(45),
         allowNull: false,
         unique: true,
       },

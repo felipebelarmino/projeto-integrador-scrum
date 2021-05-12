@@ -14,7 +14,7 @@ module.exports = {
         allowNull: false,
       },
       numero: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.INTEGER(6),
         allowNull: false,
       },
       complemento: {
@@ -34,7 +34,7 @@ module.exports = {
         allowNull: false,
       },
       cep: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER(11),
         allowNull: false,
       },
       user_id: {

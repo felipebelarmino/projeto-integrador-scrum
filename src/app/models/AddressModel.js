@@ -5,12 +5,12 @@ class Address extends Model {
     super.init(
       {
         logradouro: Sequelize.STRING,
-        numero: Sequelize.INTEGER,
+        numero: Sequelize.INTEGER(6),
         complemento: Sequelize.STRING,
         bairro: Sequelize.STRING,
         cidade: Sequelize.STRING,
-        estado: Sequelize.STRING,
-        cep: Sequelize.STRING, // complemento // Vistual quer dizer que ele só vai existir só no codigo e não no banc
+        estado: Sequelize.STRING(2),
+        cep: Sequelize.INTEGER(8), // complemento // Vistual quer dizer que ele só vai existir só no codigo e não no banc
         user_id: {
           type: Sequelize.INTEGER,
           references: "users",
