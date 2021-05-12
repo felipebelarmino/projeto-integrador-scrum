@@ -30,11 +30,11 @@ module.exports = {
         allowNull: false,
       },
       estado: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(2),
         allowNull: false,
       },
       cep: {
-        type: Sequelize.INTEGER(11),
+        type: Sequelize.INTEGER(8),
         allowNull: false,
       },
       user_id: {
