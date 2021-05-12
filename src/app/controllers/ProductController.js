@@ -25,12 +25,17 @@ class ProductController {
 
 
   async findAllProducts(request, response) {
+        
+    let conditions = request.query;
+
+    if (conditions.name) {
+      conditions.name = { [Op.like]: `%${conditions.name}%` };
+    }    
     
-    let { key, value, complete } = request.query;
-    
-    let totalMatch = complete === true ? '' : '%';    
-    let condition = (key && value) ? { [key]: { [Op.like]: `${totalMatch}${value}${totalMatch}` } } : null;    
-    
+    // Exemplo da estrutura da condição
+    // const conditions = [{ name: { [Op.like]: '%e%' }}, {category_id: 1}];    
+    const condition = { [Op.and]: conditions };
+
     Product.findAll({ where: condition })
       .then((data) => {
         if (data.length < 1)
@@ -47,27 +52,27 @@ class ProductController {
       });
   }
 
-  // async findProductsByName(request, response) {
-  //   const productName = request.query.name;
-  //   let condition = productName
-  //     ? { name: { [Op.like]: `%${productName}%` } }
-  //     : null;
+  async findProductsByName(request, response) {
+    const productName = request.query.name;
+    let condition = productName
+      ? { name: { [Op.like]: `%${productName}%` } }
+      : null;
 
-  //   Product.findAll({ where: condition })
-  //     .then((data) => {
-  //       if (data.length < 1)
-  //         return response
-  //           .status(400)
-  //           .json({ message: "Produto não encontrado ou não cadastrado!" });
+    Product.findAll({ where: condition })
+      .then((data) => {
+        if (data.length < 1)
+          return response
+            .status(400)
+            .json({ message: "Produto não encontrado ou não cadastrado!" });
 
-  //       response.json(data);
-  //     })
-  //     .catch((err) => {
-  //       response.status(500).json({
-  //         message: err.message || "Erro interno ao buscar produto.",
-  //       });
-  //     });
-  // }
+        response.json(data);
+      })
+      .catch((err) => {
+        response.status(500).json({
+          message: err.message || "Erro interno ao buscar produto.",
+        });
+      });
+  }
 
 
   async findProductById(request, response) {
