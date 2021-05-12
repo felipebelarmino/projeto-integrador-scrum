@@ -3,6 +3,8 @@ const { Op } = require("sequelize");
 
 class ProductController {
   async store(request, response) {
+
+    console.log(request.body)
     const productExists = await Product.findOne({
       where: { sku: request.body.sku },
     });

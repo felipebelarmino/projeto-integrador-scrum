@@ -17,7 +17,7 @@ userRoutes.post("/user", UserController.store);
 userRoutes.post("/session", SessionController.store);
 
 //Autenticar
-userRoutes.use(authMiddleware);
+// userRoutes.use(authMiddleware);
 
 //Listar todos os providers
 userRoutes.get("/providers", ProviderController.index);
@@ -33,6 +33,8 @@ userRoutes.post("/files", upload.single("file"), FileController.store);
 
 //Exibir todos users
 userRoutes.get("/users", UserController.findAllUsers);
+
+userRoutes.get('/user/all-avatar', UserController.findAllUsersAvatars)
 
 //Encontrar user por id
 userRoutes.get("/user/:id", UserController.findOneUserById);
