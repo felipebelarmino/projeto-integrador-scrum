@@ -7,22 +7,8 @@ class AddressController {
       .catch((err) =>
         response
           .status(500)
-          .json({ error: err.message || "Erro interno ao criar endereço" })
+          .json({ erro: "Erro interno ao criar endereço" })
       );
-
-    return response.json({
-      message: "Endereço criado com sucesso!",
-      address: {
-        id,
-        logradouro,
-        numero,
-        complemento,
-        bairro,
-        cidade,
-        estado,
-        cep,
-      },
-    });
   }
 
   async findAllAddress(request, response) {
@@ -35,15 +21,8 @@ class AddressController {
   }
 
   async updateAddress(request, response) {
-    const {
-      logradouro,
-      numero,
-      complemento,
-      bairro,
-      cidade,
-      estado,
-      cep,
-    } = request.body;
+    const { logradouro, numero, complemento, bairro, cidade, estado, cep } =
+      request.body;
 
     if (
       !logradouro ||
