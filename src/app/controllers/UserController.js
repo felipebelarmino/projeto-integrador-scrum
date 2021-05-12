@@ -24,20 +24,11 @@ class UserController {
       return response.status(400).json({ error: "Usuário já existe!" });
     }
 
-    const { id, name, login, active, provider } = await User.create(
+    const user = await User.create(
       request.body
     );
 
-    return response.json({
-      message: "Usuário criado com sucesso!",
-      user: {
-        id,
-        name,
-        login,
-        active,
-        provider,
-      },
-    });
+    return response.json(user);
   }
 
   //------

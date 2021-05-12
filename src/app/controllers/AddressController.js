@@ -2,13 +2,11 @@ import AddressModel from "../models/AddressModel";
 
 class AddressController {
   async store(request, response) {
+    console.log(request.body);
+
     AddressModel.create(request.body)
       .then((data) => response.json(data))
-      .catch((err) =>
-        response
-          .status(500)
-          .json({ erro: "Erro interno ao criar endereço" })
-      );
+      .catch((err) => response.status(500).json({ err: err }));
   }
 
   async findAllAddress(request, response) {
