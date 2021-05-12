@@ -40,6 +40,11 @@ class UserController {
     });
   }
 
+  //------
+  async findAllUsersAvatars(request, response) {
+    
+  }
+
   async findAllUsers(request, response) {
     const users = await User.findAll({ where: null });
     if (users.length < 1)
