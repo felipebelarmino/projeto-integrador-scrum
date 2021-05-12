@@ -24,11 +24,11 @@ module.exports = {
       },
       ddd: {
         type: Sequelize.TINYINT(2),
-        allowNull: false,
+        allowNull: true,
       },
       phone: {
         type: Sequelize.INTEGER(9),
-        allowNull: false,
+        allowNull: true,
       },
       login: {
         type: Sequelize.STRING (45),
