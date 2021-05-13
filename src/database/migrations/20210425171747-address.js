@@ -13,17 +13,13 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      endereco: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
       numero: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.INTEGER(6),
         allowNull: false,
       },
       complemento: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       bairro: {
         type: Sequelize.STRING,
@@ -34,11 +30,11 @@ module.exports = {
         allowNull: false,
       },
       estado: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(2),
         allowNull: false,
       },
       cep: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER(8),
         allowNull: false,
       },
       user_id: {

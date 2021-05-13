@@ -78,10 +78,9 @@ class CategoryController {
 
     return response.status(200).json(category);
   }
-  
+
   //GET ALL CATEGORIES
   async index(request, response) {
-
     let { key, value, complete } = request.query;
     
     let totalMatch = complete === true ? '' : '%';    
