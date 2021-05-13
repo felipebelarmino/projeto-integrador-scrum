@@ -2,27 +2,11 @@ import AddressModel from "../models/AddressModel";
 
 class AddressController {
   async store(request, response) {
+    console.log(request.body);
+
     AddressModel.create(request.body)
       .then((data) => response.json(data))
-      .catch((err) =>
-        response
-          .status(500)
-          .json({ error: err.message || "Erro interno ao criar endereço" })
-      );
-
-    return response.json({
-      message: "Endereço criado com sucesso!",
-      address: {
-        id,
-        logradouro,
-        numero,
-        complemento,
-        bairro,
-        cidade,
-        estado,
-        cep,
-      },
-    });
+      .catch((err) => response.status(500).json({ err: err }));
   }
 
   async findAllAddress(request, response) {
@@ -35,15 +19,8 @@ class AddressController {
   }
 
   async updateAddress(request, response) {
-    const {
-      logradouro,
-      numero,
-      complemento,
-      bairro,
-      cidade,
-      estado,
-      cep,
-    } = request.body;
+    const { logradouro, numero, complemento, bairro, cidade, estado, cep } =
+      request.body;
 
     if (
       !logradouro ||
