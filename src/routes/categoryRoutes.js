@@ -7,7 +7,7 @@ const categoryRoutes = new Router();
 categoryRoutes.post("/category", CategoryController.store);
 
 //PUT-UPDATE
-categoryRoutes.put("/category/:category", CategoryController.update);
+categoryRoutes.put("/category/:id", CategoryController.update);
 
 //GET-SEARCH BY CATEGORY
 categoryRoutes.get("/category/:category", CategoryController.show);

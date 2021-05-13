@@ -94,9 +94,7 @@ class UserController {
     if (!(await schema.isValid(request.body))) {
       return response.status(400).json({ erro: "Falha ao validar campos!" });
     }
-
-    console.log(request.userId);
-
+    
     const { login, oldPassword } = request.body;
 
     const user = await User.findByPk(request.userId);

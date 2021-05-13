@@ -20,8 +20,12 @@ module.exports = {
         allowNull: false,
         unique: true,
       },
+      login_fk: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
       foreignKey: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         allowNull: true,
       },
       created_at: {
