@@ -13,6 +13,9 @@ productRoutes.get("/product", ProductController.findAllProducts);
 // Obter produto por id
 productRoutes.get("/product/:id", ProductController.findProductById);
 
+// Obter array de produtos por lista de ids
+productRoutes.post("/productsById", ProductController.findAllProductsByIds);
+
 //Listar produtos por nome (QUERY)
 //http://localhost:porta/product?name=nome-do-produto
 // productRoutes.get("/product/:name", ProductController.findProductsByName);
