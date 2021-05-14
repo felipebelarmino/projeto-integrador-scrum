@@ -16,19 +16,16 @@ class FileModel extends Model {
       },
       {
         sequelize,
-        tableName: 'files',
+        tableName: "files",
       }
     );
     return this;
   }
 
   static associate(models) {
-    this.belongsTo(
-      models.User,
-      {
-        foreignKey: "avatar_id",
-      }
-    );
+    this.belongsTo(models.User, {
+      foreignKey: "avatar_id",
+    });
   }
 }
 

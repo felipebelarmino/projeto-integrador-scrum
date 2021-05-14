@@ -6,6 +6,8 @@ class FileController {
 
     const obj = JSON.parse(JSON.stringify(request.body));
 
+    console.log(obj.body)
+
     const loginFk = obj.body;
 
     const { originalname: name, filename: path } = request.file;
@@ -13,7 +15,7 @@ class FileController {
     const file = await File.create({
       name,
       path,
-      loginFk: loginFk,
+      login_fk: loginFk,
     });
 
     return response.json(file);
@@ -21,7 +23,7 @@ class FileController {
 
   async getAvatar(request, response) {
 
-    // console.log(request.)
+    console.log(request)
 
     if (!request.body.login)
       return response.status(400).json({
