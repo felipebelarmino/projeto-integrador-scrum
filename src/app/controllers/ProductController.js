@@ -54,6 +54,26 @@ class ProductController {
       });
   }
 
+  async findAllProductsByIds(request, response) {
+    // let ids = [10, 2, 7];
+    let ids = request.body;
+    
+    Product.findAll({ where: { id: ids }})
+      .then((data) => {
+        if (data.length < 1)
+          return response
+            .status(400)
+            .json({ message: "Produto não encontrado ou não cadastrado!" });
+
+        response.json(data);
+      })
+      .catch((err) => {
+        response.status(500).json({
+          message: err.message || "Erro interno ao buscar produto.",
+        });
+      });
+  }
+
   async findProductsByName(request, response) {
     const productName = request.query.name;
     let condition = productName
