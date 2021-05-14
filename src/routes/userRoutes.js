@@ -31,7 +31,7 @@ userRoutes.put("/user/update/:id", UserController.updateUser);
 //Fazer upload de uma imagem para o avatar
 userRoutes.post("/files", upload.single("file"), FileController.store);
 
-// userRoutes.put("/files", FileController.updateAvatarLogin);
+userRoutes.post("/user/avatar", FileController.getAvatar);
 
 //Exibir todos users
 userRoutes.get("/users", UserController.findAllUsers);

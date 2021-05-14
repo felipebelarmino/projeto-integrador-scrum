@@ -6,8 +6,7 @@ class FileModel extends Model {
       {
         name: Sequelize.STRING,
         path: Sequelize.STRING,
-        loginFk: Sequelize.STRING,
-        foreignKey: Sequelize.STRING,
+        login_fk: Sequelize.STRING,
         url: {
           type: Sequelize.VIRTUAL,
           get() {
@@ -34,4 +33,3 @@ class FileModel extends Model {
 }
 
 export default FileModel;
-
