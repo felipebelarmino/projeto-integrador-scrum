@@ -4,7 +4,12 @@ const { Op } = require("sequelize");
 class CategoryController {
   //CREATE
   async store(request, response) {
+    if (request.body.category === "")
+      return response.json({ message: "Ojeto vazio!" });
+
     const { category } = request.body;
+
+    console.log(request.body);
 
     const categoryExists = await CategoryModel.findOne({ where: { category } });
 
@@ -28,30 +33,22 @@ class CategoryController {
   }
 
   //UPDATE
-  async update(request, response) {
-    const category = request.params.category;
-    const categoryUp = request.body.category;
-    const categoryExists = await CategoryModel.findOne({
-      where: { category: categoryUp },
-    });
+  async update(request, response) {  
+    const categoryId = request.params.id;
 
-    if (!categoryUp || categoryUp.trim().length == 0 || categoryExists) {
-      return response.status(400).json({
-        error: `O campo está vazio ou a categoria ${categoryUp} já existe.`,
-      });
-    }
+    const categoryExists = await CategoryModel.findByPk(categoryId);
 
-    const categoryNew = await CategoryModel.update(request.body, {
-      where: { category: category },
-    });
+    request.body.featured ? request.body.featured : false;
 
-    if (categoryNew == 1) {
+    const categoryNew = await categoryExists.update(request.body);
+
+    if (categoryNew) {
       return response.status(200).json({
         message: "Categoria atualizada com sucesso!",
       });
     } else {
       return response.status(400).json({
-        message: `Não foi possível atualizar o cadastro. A categoria ${category} não foi encontrada.`,
+        message: `Não foi possível atualizar o cadastro. A categoria não foi encontrada.`,
       });
     }
   }
@@ -82,10 +79,13 @@ class CategoryController {
   //GET ALL CATEGORIES
   async index(request, response) {
     let { key, value, complete } = request.query;
-    
-    let totalMatch = complete === true ? '' : '%';    
-    let condition = (key && value) ? { [key]: { [Op.like]: `${totalMatch}${value}${totalMatch}` } } : null;
-    
+
+    let totalMatch = complete === true ? "" : "%";
+    let condition =
+      key && value
+        ? { [key]: { [Op.like]: `${totalMatch}${value}${totalMatch}` } }
+        : null;
+
     const categories = await CategoryModel.findAll({ where: condition });
 
     if (categories.lenght < 1) {
@@ -99,10 +99,13 @@ class CategoryController {
 
   //DELETE BY CATEGORY
   async delete(request, response) {
+    if (request.params.category === 0)
+      return response.json({ message: "Nenhuma categoria selecionada!" });
+
     const category = request.params.category;
 
     const categoryDel = await CategoryModel.destroy({
-      where: { category: category },
+      where: { id: category },
     });
 
     if (categoryDel == 1) {

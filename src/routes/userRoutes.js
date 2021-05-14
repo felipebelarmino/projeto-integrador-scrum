@@ -31,10 +31,12 @@ userRoutes.put("/user/update/:id", UserController.updateUser);
 //Fazer upload de uma imagem para o avatar
 userRoutes.post("/files", upload.single("file"), FileController.store);
 
+// userRoutes.put("/files", FileController.updateAvatarLogin);
+
 //Exibir todos users
 userRoutes.get("/users", UserController.findAllUsers);
 
-userRoutes.get('/user/all-avatar', UserController.findAllUsersAvatars)
+userRoutes.get("/user/all-avatar", UserController.findAllUsersAvatars);
 
 //Encontrar user por id
 userRoutes.get("/user/:id", UserController.findOneUserById);
